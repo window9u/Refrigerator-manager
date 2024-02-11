@@ -1,4 +1,4 @@
-
+import Table from "../components/Table"
 export default function Home(){
-    return <div>home</div>
+    return <div ><Table/></div>
 }
