@@ -113,7 +113,7 @@ export async function getIngredients() {
   return ingredients; // Return the categorized ingredients
 }
 
-export async function editIngredients(data) {
+export async function postEditIngredients(data) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   ingredients.map((val) => {
     if (val.id === data.id) {
@@ -125,13 +125,13 @@ export async function editIngredients(data) {
   return true;
 }
 
-export async function deleteIngredients(data) {
+export async function postDeleteIngredients(data) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   ingredients = ingredients.filter((val) => val.id !== data.id);
   return true;
 }
 
-export async function createIngredients(data) {
+export async function postCreateIngredients(data) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   //server process
   data["id"] = index++;
