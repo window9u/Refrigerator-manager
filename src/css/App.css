@@ -16,15 +16,25 @@ html, body {
     position: sticky; /* Optional: makes the sidebar scroll with the page */
     top: 0; /* Works with position: sticky */
 }
+
+.columns:not(:last-child) {
+    margin-bottom: 0.1rem;
+}
+
 .card{
     margin: 30px 50px;
 }
 
 .box{
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
     padding: 0.5rem;
 }
+
 .card-content {
     background-color: transparent;
+    padding: 0.5rem;
+}
+
+.tableItem {
     padding: 0.5rem;
 }

@@ -1,20 +1,24 @@
-export default function TableItem({ data, onEdit, onDelete }) {
+export default function TableItem({ data, isEdit, index, onDelete }) {
   return (
-    <div className="box">
-      <div className="columns">
-        <div className="column is-8 tableItem">{data.name + data.quantity}</div>
-        <div className="column is-4 tableItem">
-          <button className="button is-small is-info">Select</button>
+    <div class="box">
+      <div class="columns">
+        <div class="columns column is-8 tableItem">
+          <div class="column is-4">{data.name}</div>
+          <div class="column is-4">{data.quantity}</div>
+          <div class="column is-4">{data.consumableDate}</div>
+        </div>
+        <div class="column is-4 tableItem">
+          <button class="button is-small is-info">Select</button>
           <button
-            className="button is-small is-primary"
+            class="button is-small is-primary"
             onClick={() => {
-              onEdit(data);
+              isEdit(index);
             }}
           >
             Edit
           </button>
           <button
-            className="button is-small is-danger"
+            class="button is-small is-danger"
             onClick={() => {
               onDelete(data);
             }}
