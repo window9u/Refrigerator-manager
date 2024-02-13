@@ -1,3 +1,4 @@
+import CreateItem from "./CreateItem";
 import EditItem from "./EditItem";
 import TableItem from "./TableItem";
 import { useState } from "react";
@@ -10,6 +11,10 @@ export default function Table({
   onEdit,
 }) {
   const [isEdit, setIsEdit] = useState(Array(ingredients.length).fill(false));
+  const [isCreate, setIsCreate] = useState(true);
+  const onIsCreate = () => {
+    setIsCreate(!isCreate);
+  };
 
   const onIsEdit = (i) => {
     const newEdit = isEdit.slice();
@@ -49,7 +54,22 @@ export default function Table({
               />
             )
           )}
-          <div class="box">add Ingredents</div>
+          {isCreate ? (
+            <button class="button" onClick={onIsCreate}>
+              add ingredients
+            </button>
+          ) : (
+            <CreateItem
+              isCreate={onIsCreate}
+              onCreate={onCreate}
+              data={{
+                name: "",
+                quantity: "",
+                consumableDate: "",
+                category: category,
+              }}
+            />
+          )}
         </div>
       </div>
     </div>
