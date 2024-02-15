@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { IngredientDispatchContext } from "../ingredientContext";
 
-export default function CreateItem({ data, isCreate, onCreate }) {
+export default function CreateItem({ data, isCreate }) {
+  const ingredientActions = useContext(IngredientDispatchContext);
   const [ingredient, setIngredients] = useState(data);
   const handleChange = (e) => {
     setIngredients({ ...ingredient, [e.target.name]: e.target.value });
@@ -42,7 +44,7 @@ export default function CreateItem({ data, isCreate, onCreate }) {
           <button
             class="button is-small is-primary"
             onClick={() => {
-              onCreate(ingredient);
+              ingredientActions.handleCreate(ingredient);
               isCreate();
             }}
           >
