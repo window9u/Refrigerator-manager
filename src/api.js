@@ -106,32 +106,25 @@ let ingredients = [
   },
 ];
 var index = 16;
-export async function getIngredients() {
+export async function fetchIngredients() {
   // Simulating a delay to mimic async data fetching
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   return ingredients; // Return the categorized ingredients
 }
 
-export async function postEditIngredients(data) {
+export async function updateIngredients(data) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  ingredients.map((val) => {
-    if (val.id === data.id) {
-      return data;
-    } else {
-      return val;
-    }
-  });
-  return true;
+  return data;
 }
 
-export async function postDeleteIngredients(data) {
+export async function deleteIngredient(data) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   ingredients = ingredients.filter((val) => val.id !== data.id);
   return true;
 }
 
-export async function postCreateIngredients(data) {
+export async function createIngredient(data) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   //server process
   data["id"] = index++;
