@@ -1,7 +1,9 @@
 import { useState } from "react";
-
-export default function EditItem({ data, isEdit, index, onEdit }) {
+import { IngredientDispatchContext } from "../ingredientContext";
+import { useContext } from "react";
+export default function EditItem({ data }) {
   const [ingredient, setIngredients] = useState(data);
+  const ingredientActions = useContext(IngredientDispatchContext);
   const handleChange = (e) => {
     setIngredients({ ...ingredient, [e.target.name]: e.target.value });
   };
@@ -37,15 +39,12 @@ export default function EditItem({ data, isEdit, index, onEdit }) {
               onChange={handleChange}
             />
           </div>
-          <div class="column is-4">{data.quantity}</div>
-          <div class="column is-4">{data.consumableDate}</div>
         </div>
         <div class="column is-4 tableItem">
           <button
             class="button is-small is-primary"
             onClick={() => {
-              onEdit(ingredient);
-              isEdit(index);
+              ingredientActions.handleUpdate(ingredient);
             }}
           >
             Save

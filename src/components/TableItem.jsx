@@ -1,4 +1,9 @@
-export default function TableItem({ data, isEdit, index, onDelete }) {
+import { useContext } from "react";
+import { IngredientDispatchContext } from "../ingredientContext";
+
+export default function TableItem({ data }) {
+  const ingredientActions = useContext(IngredientDispatchContext);
+
   return (
     <div class="box">
       <div class="columns">
@@ -8,11 +13,10 @@ export default function TableItem({ data, isEdit, index, onDelete }) {
           <div class="column is-4">{data.consumableDate}</div>
         </div>
         <div class="column is-4 tableItem">
-          <button class="button is-small is-info">Select</button>
           <button
             class="button is-small is-primary"
             onClick={() => {
-              isEdit(index);
+              ingredientActions.handleEdit(data.id);
             }}
           >
             Edit
@@ -20,10 +24,18 @@ export default function TableItem({ data, isEdit, index, onDelete }) {
           <button
             class="button is-small is-danger"
             onClick={() => {
-              onDelete(data);
+              ingredientActions.handleDelete(data.id);
             }}
           >
             Delete
+          </button>
+          <button
+            class="button is-small is-info"
+            onClick={() => {
+              ingredientActions.handleSelect(data.id);
+            }}
+          >
+            Select
           </button>
         </div>
       </div>

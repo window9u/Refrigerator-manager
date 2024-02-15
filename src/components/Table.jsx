@@ -3,54 +3,55 @@ import EditItem from "./EditItem";
 import TableItem from "./TableItem";
 import { useState } from "react";
 
-export default function Table({
-  category,
-  ingredients,
-  onCreate,
-  onDelete,
-  onEdit,
-}) {
-  const [isEdit, setIsEdit] = useState(Array(ingredients.length).fill(false));
+export default function Table({ category, ingredients }) {
   const [isCreate, setIsCreate] = useState(true);
+  const [selectedOption, setSelectedOption] = useState("sort by date"); // Default value
+  const sortedData = () => {
+    if (selectedOption === "sort by date") {
+      return ingredients.sort(
+        (a, b) => new Date(a.consumableDate) - new Date(b.consumableDate)
+      );
+    } else {
+      return ingredients.sort((a, b) => a.name.localeCompare(b.name));
+    }
+  };
+  const handleSort = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
   const onIsCreate = () => {
     setIsCreate(!isCreate);
   };
-
-  const onIsEdit = (i) => {
-    const newEdit = isEdit.slice();
-    newEdit[i] = !newEdit[i];
-    console.log(isEdit[i]);
-    setIsEdit(newEdit);
-  };
-
+  const onIsEdit = (id) => {};
   return (
     <div class="card">
       <header class="card-header">
-        <div className="column is-8">
+        <div class="column is-8">
           <p class="card-header-title">{category}</p>
         </div>
-        <div className="column is-4">
-          <button class="button">sort by Date</button>
+        <div class="column is-4">
+          <div class="select">
+            <select value={selectedOption} onChange={handleSort}>
+              <option>sort by date</option>
+              <option>sort by name</option>
+            </select>
+          </div>
         </div>
       </header>
       <div class="card-content">
         <div class="content">
-          {ingredients.map((ingredient, index) =>
-            isEdit[index] ? (
+          {sortedData().map((ingredient) =>
+            ingredient.edit ? (
               <EditItem
                 key={ingredient.id}
                 data={ingredient}
                 isEdit={onIsEdit}
-                index={index}
-                onEdit={onEdit}
               />
             ) : (
               <TableItem
                 key={ingredient.id}
                 data={ingredient}
-                onDelete={onDelete}
                 isEdit={onIsEdit}
-                index={index}
               />
             )
           )}
@@ -61,7 +62,6 @@ export default function Table({
           ) : (
             <CreateItem
               isCreate={onIsCreate}
-              onCreate={onCreate}
               data={{
                 name: "",
                 quantity: "",
